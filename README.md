@@ -4,7 +4,7 @@
 
 | Column             | Type   | Options                  | 
 | ------------------ | ------ | ------------------------ |
-| nickname           | string | null: false, unique:true |
+| nickname           | string | null: false              |
 | email              | string | null: false, unique:true |
 | encrypted_password | string | null: false              |
 | last-name          | string | null: false              |
@@ -21,17 +21,17 @@
 
 ## items テーブル
 
-| Column                   | Type       | Options                        |
-| -------------------------| ---------- | ------------------------------ |
-| item-name                | string     | null: false                    |
-| item-info                | text       | null: false                    |
-| item-category            | integer    | null: false                    |
-| item-sales-status        | integer    | null: false                    |
-| item-shipping-fee-status | integer    | null: false                    |
-| item-prefecture          | integer    | null: false                    |
-| item-scheduled-delivery  | integer    | null: false                    |
-| item-price               | integer    | null: false                    |
-| user                     | references | null: false, foreign_key: true |
+| Column                 | Type       | Options                        |
+| -----------------------| ---------- | ------------------------------ |
+| name                   | string     | null: false                    |
+| info                   | text       | null: false                    |
+| category_id            | integer    | null: false                    |
+| sales-status_id        | integer    | null: false                    |
+| shipping-fee-status_id | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
+| scheduled-delivery_id  | integer    | null: false                    |
+| price                  | integer    | null: false                    |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -53,17 +53,17 @@
 - has_one :shipping-address
 
 
-## shipping-address テーブル
+## addresses テーブル
 
-| Column       | Type       | Options                        |
-| --------- ---| ---------- | ------------------------------ |
-| post-code    | string     | null: false                    |
-| prefecture   | integer    | null: false                    |
-| city         | string     | null: false                    |
-| addresses    | string     | null: false                    |
-| building     | string     |                                |
-| phone-number | string     | null: false                    |
-| order        | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| --------------| ---------- | ------------------------------ |
+| post-code     | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| addresses     | string     | null: false                    |
+| building      | string     |                                |
+| phone-number  | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
 
