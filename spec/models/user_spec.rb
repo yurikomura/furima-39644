@@ -83,6 +83,27 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
       end
 
+      it '英字のみのパスワードでは登録できない' do
+        @user.password = 'abcdef'
+        @user.password_confirmation = 'abcdef'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+      end
+
+      it '数字のみのパスワードでは登録できない' do
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+      end
+
+      it '全角文字を含むパスワードでは登録できない' do
+        @user.password = 'あ12345'
+        @user.password_confirmation = 'あ12345'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+      end
+
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '1234567'
@@ -118,6 +139,30 @@ RSpec.describe User, type: :model do
         @user.birth_date = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Birth date can't be blank")
+      end
+
+      it '名字が全角(漢字・ひらがな・カタカナ)が空だと登録できない' do
+        @user.last_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name can't be blank", "Last name 全角文字を使用してください")
+      end
+
+      it '名前が全角(漢字・ひらがな・カタカナ)が空だと登録できない' do
+        @user.first_name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name can't be blank", "First name 全角文字を使用してください")
+      end
+
+      it '名字のフリガナが全角(カタカナ)が空だと登録できない' do
+        @user.last_name_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana can't be blank", "Last name kana 全角カナを使用してください")
+      end
+
+      it '名前のフリガナが全角(カタカナ)が空だと登録できない' do
+        @user.first_name_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana can't be blank")
       end
     end
   end
