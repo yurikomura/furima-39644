@@ -17,7 +17,7 @@ class Item < ApplicationRecord
      validates :shipping_fee_status_id
      validates :prefecture_id
      validates :scheduled_delivery_id
-     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 10_000_000 }    
+     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }    
    end
 
   #ジャンルの選択が「---」の時は保存できないようにする
@@ -28,7 +28,7 @@ class Item < ApplicationRecord
   validates :scheduled_delivery_id, numericality: { other_than: 0 , message: "can't be blank"}
             
   belongs_to :user
-  has_one :order
+  #has_one :order
   has_one_attached :image
 
 end
