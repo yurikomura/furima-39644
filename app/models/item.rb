@@ -8,25 +8,28 @@ class Item < ApplicationRecord
               
 
    #空の投稿を保存できないようにする
-   validates :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id, :scheduled_delivery_id, presence: true
+   with_options presence: true do
+     validates :name
+     validates :image
+     validates :info
+     validates :category_id
+     validates :sales_status_id
+     validates :shipping_fee_status_id
+     validates :prefecture_id
+     validates :scheduled_delivery_id
+     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 10_000_000 }    
+   end
 
   #ジャンルの選択が「---」の時は保存できないようにする
-  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :sales_status_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :shipping_fee_status_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :scheduled_delivery_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :category_id, numericality: { other_than: 0 , message: "can't be blank"}
+  validates :sales_status_id, numericality: { other_than: 0 , message: "can't be blank"}
+  validates :shipping_fee_status_id, numericality: { other_than: 0 , message: "can't be blank"}
+  validates :prefecture_id, numericality: { other_than: 0 , message: "can't be blank"}
+  validates :scheduled_delivery_id, numericality: { other_than: 0 , message: "can't be blank"}
             
-  with_options presence: true do
-    validates :name
-    validates :info
-    validates :price
-  end
-  
-
-
   belongs_to :user
   has_one :order
   has_one_attached :image
+
 end
 
