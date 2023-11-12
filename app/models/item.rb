@@ -28,7 +28,7 @@ class Item < ApplicationRecord
   validates :scheduled_delivery_id, numericality: { other_than: 0 , message: "can't be blank"}
             
   belongs_to :user
-  #has_one :order
+  has_one :order
   has_one_attached :image
 
 end
