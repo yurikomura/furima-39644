@@ -132,7 +132,7 @@ RSpec.describe Item, type: :model do
       it '価格が10,000,000円を超過すると保存できないこと' do
         @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 10000000")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 10000000')
       end
 
       it 'カテゴリーが「---」だと出品できない' do
@@ -163,11 +163,7 @@ RSpec.describe Item, type: :model do
         @item.scheduled_delivery_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Scheduled delivery can't be blank")
-      end  
-
+      end
     end
   end
 end
-
-
-
