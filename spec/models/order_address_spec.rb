@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.describe OrderAddress, type: :model do
   before do
-    # user = FactoryBot.create(:user)
-    # item = FactoryBot.create(:item, user_id: user.id)
-    # @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
     @order_address = FactoryBot.build(:order_address)
   end
 
@@ -23,6 +20,10 @@ RSpec.describe OrderAddress, type: :model do
       end
       it '市区町村が空でなければ保存できる' do
         @order_address.city = '東京都'
+        expect(@order_address).to be_valid
+      end
+      it '建物名が空でも購入できる' do
+        @order_address.building = nil
         expect(@order_address).to be_valid
       end
       it '番地が空でなければ保存できる' do
