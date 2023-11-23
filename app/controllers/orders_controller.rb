@@ -5,7 +5,13 @@ class OrdersController < ApplicationController
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_address = OrderAddress.new
     @item = Item.find(params[:item_id])
+    if @item.order.present? || (current_user.present? && current_user == @item.user)
+      redirect_to root_path
+    elsif !current_user.present?
+      redirect_to new_user_session_path
+    end
   end
+
 
   def create
     @order_address = OrderAddress.new(order_params)
