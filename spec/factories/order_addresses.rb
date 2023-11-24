@@ -5,8 +5,8 @@ FactoryBot.define do
     city { '東京都' }
     addresses { '1-1' }
     phone_number { Faker::Number.decimal_part(digits: 11) }
-    user_id { Faker::Number.non_zero_digit }
-    item_id { Faker::Number.non_zero_digit }
+    user_id { 1 }
+    item_id { 1 }
     token { 'tok_abcdefghijk00000000000000000' }
   end
 end
